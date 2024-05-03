@@ -1,0 +1,176 @@
+\documentclass{article}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{geometry}
+\usepackage{graphicx} % Add graphicx package for including images
+
+% Define colors
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codegreen}{RGB}{0,128,0} % Dark green
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+% Define code style
+\lstdefinestyle{mystyle}{
+    basicstyle=\ttfamily\color{codegreen},
+    backgroundcolor=\color{backcolour},
+    commentstyle=\color{codegray},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codegreen},
+    breakatwhitespace=false,
+    breaklines=true,
+    captionpos=b,
+    keepspaces=true,
+    numbers=left,
+    numbersep=5pt,
+    showspaces=false,
+    showstringspaces=false,
+    showtabs=false,
+    tabsize=2
+}
+
+\lstset{style=mystyle}
+
+% Set document margins
+\geometry{margin=1in}
+
+\begin{document}
+
+\title{\bfseries\huge Setting Up a Development Environment with WSL, VS Code, and Python} % Dark, large, bold title
+\author{}
+\date{}
+\maketitle
+
+\section{Introduction}
+In today's software development landscape, having a robust and efficient development environment is essential for productivity and collaboration. This guide aims to walk you through the process of setting up a powerful development environment using Windows Subsystem for Linux (WSL), Visual Studio Code (VS Code), and Python. By leveraging these tools, developers can enjoy the flexibility of Linux-based development alongside the familiar interface of Windows, coupled with the extensive features and extensions provided by VS Code.
+
+\section{Installing Ubuntu 22.04 on WSL}
+\subsection{Open PowerShell}
+PowerShell serves as the command-line interface for executing administrative tasks and commands in Windows. It provides powerful scripting capabilities and facilitates system management tasks.
+\begin{lstlisting}
+wsl --install -d Ubuntu-22.04
+\end{lstlisting}
+\subsection{Search and Launch Ubuntu}
+Once the installation is complete, Ubuntu can be accessed by searching for it in the Windows search bar and launching it like any other application.
+\subsection{Provide Username and Password}
+Upon launching Ubuntu for the first time, you'll be prompted to create a new username and password for your Ubuntu environment. For example, username: \texttt{user123}, password: \texttt{******}.
+\begin{lstlisting}
+user123@LAPTOP-VTGNBQQR:~$ 
+\end{lstlisting}
+
+\section{Setting up VS Code on WSL}
+\subsection{Open Ubuntu Terminal}
+With Ubuntu running on WSL, open the Ubuntu terminal to execute commands and perform system tasks.
+\begin{lstlisting}
+bash
+\end{lstlisting}
+\subsection{Navigate to Desired Directory}
+\begin{lstlisting}
+user123@LAPTOP-VTGNBQQR:~$ cd /
+user123@LAPTOP-VTGNBQQR:/$ cd home/user123 
+user123@LAPTOP-VTGNBQQR:~$ mkdir AiMLprojects
+user123@LAPTOP-VTGNBQQR:~$ cd AiMLprojects
+user123@LAPTOP-VTGNBQQR:~/AiMLprojects$ mkdir project1
+user123@LAPTOP-VTGNBQQR:~/AiMLprojects$ cd project1
+\end{lstlisting}
+\begin{lstlisting}
+user123@LAPTOP-VTGNBQQR:~/AiMLprojects$ code .
+\end{lstlisting}
+\subsection{Extension Installation}
+Upon opening VS Code, it may prompt you to install recommended extensions for WSL development. These extensions enhance the functionality of VS Code for Linux-based development.
+
+\section{Installing Python in WSL}
+\subsection{Confirm Python3 Installation}
+\begin{lstlisting}
+user123@LAPTOP-VTGNBQQR:~$ python3 --version
+\end{lstlisting}
+\subsection{Update Ubuntu and Python}
+\begin{lstlisting}
+user123@LAPTOP-VTGNBQQR:~$ sudo apt update && sudo apt upgrade
+\end{lstlisting}
+\subsection{Install pip (Python Package Manager)}
+\begin{lstlisting}
+user123@LAPTOP-VTGNBQQR:~$ sudo apt install python3-pip
+\end{lstlisting}
+% Add picture here
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.5\textwidth]{installing python 2.png}
+    \caption{Example Image}
+    \label{fig:example}
+\end{figure}
+\subsection{Install venv (Python Virtual Environment)}
+\begin{lstlisting}
+user123@LAPTOP-VTGNBQQR:~$ sudo apt install python3-venv
+\end{lstlisting}
+% Add picture here
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.5\textwidth]{installing python 3.png}
+    \caption{Example Image}
+    \label{fig:example}
+\end{figure}
+\subsection{\textbf{What is a Virtual Environment?}}
+A virtual environment in Python is a self-contained directory that contains a Python installation for a particular version of Python, plus a number of additional packages. It allows developers to work on multiple projects with different dependencies simultaneously, without those dependencies interfering with each other or with the system-wide Python installation. In other words virtual environment is like a separate workspace for your Python projects. Imagine having multiple projects, each requiring different versions of Python or specific packages. Instead of installing everything globally on your computer, which could lead to conflicts, a virtual environment keeps everything isolated. It's like having a mini Python universe just for that project. When you activate a virtual environment, it sets up an environment where you can install specific versions of Python and libraries without affecting other projects. This way, you can work on different projects with different requirements without worrying about compatibility issues. It's like having different rooms in a house for different activities, keeping everything organized and preventing chaos
+\subsection{\textbf{Why Do We Need It?}}
+We need virtual environments primarily to manage dependencies and avoid conflicts between different Python projects. Without virtual environments, installing Python packages globally could lead to version mismatches or dependency clashes. For example, Project A might require a specific version of a package, while Project B needs a different version. If both projects share the same global environment, installing one version could break the other project. Virtual environments provide a solution by creating isolated environments for each project. This isolation ensures that each project has its own set of dependencies and Python interpreter, preventing conflicts. Additionally, virtual environments promote reproducibility by allowing you to recreate the exact environment in which a project was developed, making it easier to share and collaborate on code.In essence, virtual environments serve as sandboxed spaces where you can experiment, develop, and deploy Python projects without worrying about interference from other projects or system-level dependencies.
+\subsection{\textbf{How Is It Beneficial for MLOps?}}
+Virtual environments are essential in MLOps for creating controlled, reproducible environments tailored to machine learning projects. They enable isolation of dependencies, ensuring consistency across various project stages like data preprocessing, training, and deployment. By encapsulating dependencies, virtual environments promote collaboration and reproducibility, facilitating easy sharing of work among team members. Moreover, they aid in version control and dependency management, mitigating compatibility issues and ensuring smooth deployment in production environments. Overall, virtual environments streamline the machine learning workflow, enhancing collaboration, efficiency, and model reliability in MLOps.
+\subsection{Create a Virtual Environment}
+\begin{lstlisting}
+user123@LAPTOP-VTGNBQQR:~/AiMLprojects$ python3 -m venv .venv
+\end{lstlisting}
+\subsection{Activate the Virtual Environment}
+\begin{lstlisting}
+user123@LAPTOP-VTGNBQQR:~/AiMLprojects$ source .venv/bin/activate
+\end{lstlisting}
+\subsection{Create a Test Python File}
+\begin{lstlisting}
+(.venv) user123@LAPTOP-VTGNBQQR:~/AiMLprojects$ touch test.py
+\end{lstlisting}
+% Add picture here
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.5\textwidth]{ python file in venv.png}
+    \caption{Example Image}
+    \label{fig:example}
+\end{figure}
+\subsection{Install Required Packages}
+\begin{lstlisting}
+(.venv) user123@LAPTOP-VTGNBQQR:~/AiMLprojects$ pip install pandas numpy
+\end{lstlisting}
+\textbf{Explanation:} The command \texttt{pip install} is used to install Python packages. \texttt{pandas} is a powerful data analysis and manipulation library, while \texttt{numpy} is a fundamental package for scientific computing with Python.
+% Add picture here
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.5\textwidth]{ pandas and numpy.png}
+    \caption{Example Image}
+    \label{fig:example}
+\end{figure}
+\subsection{Write and Run Example Program}
+Write a sample Python program using the installed packages (pandas and numpy) to verify their functionality within the project environment. This step ensures that the packages are installed correctly and can be imported and used in Python scripts.
+% Add picture here
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.5\textwidth]{testing numpy and pandas.png}
+    \caption{Example Image}
+    \label{fig:example}
+\end{figure}
+\subsection{Deactivate the Virtual Environment}
+\begin{lstlisting}
+(.venv) user123@LAPTOP-VTGNBQQR:~/AiMLprojects$ deactivate
+\end{lstlisting}
+\textbf{Note:} If you encounter a "permission denied" error when deactivating the virtual environment, ensure that the virtual environment was created within your project folder. Use the command \texttt{source deactivate} to deactivate in such cases.
+% Add picture here
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.5\textwidth]{deactivating.png}
+    \caption{Example Image}
+    \label{fig:example}
+\end{figure}
+
+\section{Conclusion}
+In conclusion, setting up a development environment with WSL, VS Code, and Python offers a seamless and efficient workflow for software development on Windows machines. By leveraging the power of Linux-based development alongside the versatility of Python and the feature-rich environment of Visual Studio Code, developers can enjoy a productive and integrated development experience. With the step-by-step instructions provided in this guide, you can easily configure your development environment and embark on your coding journey with confidence.
+
+\end{document}
